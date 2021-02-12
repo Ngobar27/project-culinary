@@ -47,9 +47,9 @@ $(window).scroll(function() {
   
   // * ===== Landing Image Gallery =====
   if(landingScroll2 > $('.gallery').offset().top - 400) {
-		$('.gallery .thumbnail').each(function(i) {
+		$('.gallery .img-left, .img-right').each(function(i) {
 			setTimeout(function() {
-				$('.gallery .thumbnail').eq(i).addClass('drop');
+				$('.gallery .img-left, .img-right').eq(i).addClass('imgGallery');
 			}, 300 * (i + 1));
 		});
 	}
@@ -64,8 +64,26 @@ $(window).scroll(function() {
 	}
 });
 
-// ! ===== Gallery =====
-let imgBx = document.querySelectorAll('.imgBx');
-imgBx.forEach(popup => popup.addEventListener('click', () => {
-	popup.classList.toggle('active2');
-}));
+// ! ===== Gallery Effect =====
+const contentGallery = document.querySelector('.contentGallery');
+const megaImg = document.querySelector('.mega-img');
+const thumbs = document.querySelectorAll('.thumb');
+
+contentGallery.addEventListener('click',function(e) {
+	// * ===== Click Thumbs =====
+	if(e.target.className == 'thumb') {
+		megaImg.src = e.target.src;
+		megaImg.classList.add('fade');
+
+		// * ===== Timing fucntion =====
+		setTimeout(function() {
+			megaImg.classList.remove('fade');
+		}, 500);
+
+		// * ===== New Class Active =====
+		thumbs.forEach(function(thumb) {
+			thumb.className = 'thumb';
+		});
+		e.target.classList.add('active3');
+	}
+});
